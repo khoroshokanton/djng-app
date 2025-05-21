@@ -1,0 +1,37 @@
+{% extends 'shopapp/base.html' %}
+{% block title %}
+    Заказы
+{% endblock title %}
+{% block body %}
+    <h1>Заказы</h1>
+    {% if not orders %}
+        <h2>Заказов нет</h2>
+    {% else %}
+        <ul>
+            {% for order in orders %}
+                <li>
+                    <div>
+                        <p>delivery_address: {{ order.delivery_address }}</p>
+                        <p>promocode: {{ order.promocode }}</p>
+                        <p>user: {{ order.user }}</p>
+                    </div>
+                </li>
+                <h2>Продукты:</h2>
+                <ol>
+                    {% for product in order.products.all %}
+                        <li>
+                            <div>
+                                <p>Name: {{ product.name }}</p>
+                                <p>Discription: {{ product.discription }}</p>
+                                <p>Price: {{ product.price }}</p>
+                                <p>Discount: {% firstof product.discount 'Нет скидки' %}</p>
+                                <p>Created_at: {{ product.created_at }}</p>
+                                <p>Archived: {{ product.archived }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock body %}

@@ -1,0 +1,23 @@
+{% extends 'shopapp/base.html' %}
+{% block title %}
+    Продукты
+{% endblock title %}
+{% block body %}
+    <h1>Список продуктов:</h1>
+    {% if not products %}
+        <h2>Список продуктов пока пустой</h2>
+    {% else %}
+        <ul>
+            {% for product in products %}
+                <div style='border: 1px solid black'>
+                    <p>Name: {{ product.name }}</p>
+                    <p>Discription: {{ product.discription }}</p>
+                    <p>Price: {{ product.price }}</p>
+                    <p>Discount: {% firstof product.discount 'Нет скидки' %}</p>
+                    <p>Created_at: {{ product.created_at }}</p>
+                    <p>Archived: {{ product.archived }}</p>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock body %}
